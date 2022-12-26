@@ -6,10 +6,14 @@ import './NavBarOff.css'
 import Profile from './Profile';
 
 const NavBarOff = () => {
-    const [open, setopen] = useState(false)
+    
+  const [seed, setseed] = useState()
+  const [open, setopen] = useState(false)
     function openNav() {
-      document.getElementById("mySidenav").style.width = "350px";
+      document.getElementById("mySidenav").style.width = "400px";
       setopen(true)
+      setseed(Math.random())
+
     }
     
 
@@ -18,6 +22,7 @@ const NavBarOff = () => {
      if (open) {
         document.getElementById("mySidenav").style.width = "0";
         setopen(false)
+        setseed(Math.random())
      }
     }
    
@@ -35,16 +40,16 @@ const NavBarOff = () => {
     return (
     <>
   
-<div id="mySidenav" className="sidenav">
+<div  id="mySidenav" className="sidenav">
   <Link  className="closebtn" onClick={closeNav}>&times;</Link>
-  <Profile/>
+  <Profile key={seed}/>
 </div>
 
 
  
- <button onClick={openNav}>&#9776;</button>
-
-
+ <button onClick={openNav}><i class="fa-regular fa-user"></i>
+</button>
+ 
 
 
    

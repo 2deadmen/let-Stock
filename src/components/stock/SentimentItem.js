@@ -8,6 +8,8 @@ const SentimentItem = (props) => {
    let month=date.substring(4,6);
    let day=date.substring(6,8);
    date=year+"-"+month+"-"+day;
+   sentiment_score=sentiment_score.slice(0,3)
+   topics=topics.slice(0,3)
     return (
     <div> <div className="my-3">
     <div className="card">
@@ -25,9 +27,16 @@ const SentimentItem = (props) => {
         <div className="card-body">
             <h5 className="card-title">{title}  </h5>
             <p className="card-text">{description}</p>
+           
+           
            <p>  sentiment---{sentiment}
 <br />
-sentiment   score---{sentiment_score}
+{sentiment_score.map((element)=>{
+  return   <p>ticker --- {element['ticker']}  <br />sentiment --- {element['ticker_sentiment_label']} </p>
+
+})
+}
+
 
 <br /> on {date}</p>
 

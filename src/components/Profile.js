@@ -14,7 +14,7 @@ useEffect(() => {
   getstocks()
   setTimeout(() => {
     setstate()
-  }, 1100);
+  }, 1000);
  
 },[])
 let navigate=useNavigate();
@@ -36,6 +36,7 @@ const fetchuserdata=async()=>{
   setname(json.name)
   setemail(json.email)
   setverified(json.verified)
+  setstate()
 } 
 const handleedit =async()=>{
   let details=document.getElementById('details')
@@ -78,9 +79,9 @@ const getstocks = async () => {
     stock[i]=value;
     stocknameobj[value] = name;
     
-
+  
   }
- 
+  setstate()
 };
 
 const handledelete=async(id)=>{
@@ -90,36 +91,41 @@ const handledelete=async(id)=>{
    
   });
   let json = await response.json()
-  console.log(json)
   getstocks()
   setstate()
+
 }
 
 const setstate=()=>{
   setseed(Math.random(0,10))
 }
   return (
-    <>Profile
+    <>
+    <div  key={seed}>
+    
+    <h3 className='mx-4'> <i class="fa-solid  fa-user"></i></h3>
    <div className="container" > <div className="container">pic</div>
-    <div className="container"  id='details'>Name : {name}</div>
+    <div className="container"  id='details'>Name : {name} <button align="center" onClick={handleedit}><i className="far fa-edit fa-lg"></i></button></div>   
 {save?    <input type="button" value="save" onClick={()=>update(document.getElementById('name').value)} />
 :null
 
 }    <hr />
 
-    <div key={seed} className="container" >
-      email : <p id='userEmail'>{ email}</p> <br></br>
+    <div  className="container" >
+      email : <p id='userEmail'>{ email}</p> 
       account status : {verified?"verified":"not verified"}
       
       
-      </div></div>
-      <button align="center" onClick={handleedit}><i className="far fa-edit fa-lg"></i>Edit</button>
+      </div>
+      <h4>your favourites</h4>
+      </div>
+   
        <div className="container">
            {stock.map((element)=>{
             return(
             <p key={element}>   {element} ----{stocknameobj[element]} <button onClick={()=>handledelete(stockid[element])}><i className="fa fa-trash" aria-hidden="true"></i></button> </p>
             ); })}
-       </div>
+       </div></div>
     </>
   )
 }

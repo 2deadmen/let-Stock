@@ -11,7 +11,7 @@ import Stock from "./components/stock/Stock";
 import Add from "./components/search/Add";
 import Profile from "./components/Profile";
 import Alert from "./Alert";
-import NavBarOff from "./components/NavBarOff";
+import Reports from "./components/Reports";
 const App = () => {
  
   return (
@@ -34,6 +34,7 @@ const App = () => {
            <Route path="/Stock" element={<Stock/>}/>
            <Route path="/Resetpass" element={<Resetpass/>}/>
            <Route path="/Profile" element={<Profile/>}/>
+           <Route path="/Report" element={<Reports/>}/>
           </Routes>
         </div>
       </Router>

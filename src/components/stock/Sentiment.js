@@ -19,7 +19,7 @@ const Sentiment = (props) => {
           let response = await fetch(
             `https://www.alphavantage.co/query?function=NEWS_SENTIMENT&topics=earnings&apikey=${process.env.REACT_APP_API}` );
           let jsondata=await response.json();
-          setdata(jsondata['feed']);
+          setdata(jsondata['feed'].slice(0,6));
           if(jsondata.Note){
             setdata(DefaultNews['feed'].slice(0,6))
           }
@@ -39,7 +39,7 @@ const Sentiment = (props) => {
                         <div className="row">
                              {data.map((element) => {
                                  return <div className="col-md-4" key={element.url}>
-                                     <SentimentItem title={element.title ? element.title : ""} description={element.summary ? element.summary : ""} imageUrl={element.banner_image} newsUrl={element.url} author={element.authors[0]} date={element.time_published} source={element.source} sentiment={element.overall_sentiment_label} sentiment_score={element.overall_sentiment_score} topics={element.topics}/>
+                                     <SentimentItem title={element.title ? element.title : ""} description={element.summary ? element.summary : ""} imageUrl={element.banner_image} newsUrl={element.url} author={element.authors[0]} date={element.time_published} source={element.source} sentiment={element.overall_sentiment_label} sentiment_score={element.ticker_sentiment} topics={element.topics}/>
                                  </div>
                              })}
                          </div>

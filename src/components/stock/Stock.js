@@ -24,7 +24,7 @@ const Stock = () => {
   let navigate = useNavigate();
    const [showchart, setshowchart] = useState(false)
   const [seed, setseed] = useState(1);
-  let { setdailydata, dailydata } = context;
+  let { setdailydata, dailydata,setreport ,setreporttype} = context;
   const [qhigh, setqhigh] = useState("");
   const [qlow, setqlow] = useState("");
   const [qopen, setqopen] = useState("");
@@ -34,7 +34,8 @@ const Stock = () => {
   const [qchangepercent, setqchangepercent] = useState("");
   const [qvol, setqvol] = useState("");
   const [qlastdate, setqlastdate] = useState("");
-
+const [weeklyData, setweeklyData] = useState({})
+const [monthlyData, setmonthlyData] = useState({})
   const [chartConfigs, setchartConfigs] = useState();
   //for fetching data
   useEffect(() => {
@@ -165,9 +166,9 @@ const Stock = () => {
     let response = await fetch(
       `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${element}&apikey=${apikey}`
     );
-    let weeklydata = await response.json();
+    setweeklyData( await response.json())
 
-    let jsondata = weeklydata["Weekly Time Series"];
+    let jsondata = weeklyData["Weekly Time Series"];
 
     try {
       for (let i in jsondata) {
@@ -238,9 +239,9 @@ const Stock = () => {
     let response = await fetch(
       `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${element}&apikey=${apikey}`
     );
-    let monthlydata = await response.json();
+    setmonthlyData( await response.json());
 
-    let jsondata = monthlydata["Monthly Time Series"];
+    let jsondata = monthlyData["Monthly Time Series"];
 
     try {
       for (let i in jsondata) {
@@ -333,8 +334,28 @@ const Stock = () => {
     // navigate('/')
     // setTimeout(() => {
     //  navigate('/Stock')
-    // }, 1);
+    // }, 1);'
   };
+
+  //report generation
+  const reportdaily=()=>{
+    setreport(dailydata)
+    navigate('/Report')
+    setreporttype("daily")
+
+  }
+  const reportweekly=()=>{
+    setreport(weeklyData)
+    setreporttype("weekly")
+    navigate('/Report')
+
+  }
+  const reportmonthly=()=>{
+    setreporttype("monthly")
+    setreport(monthlyData)
+    navigate('/Report')
+
+  }
   return (
     <>
       <div>
@@ -380,7 +401,15 @@ const Stock = () => {
         </div>
       </div>
       <Sentiment element={sessionStorage.getItem("indi")} />
+   
+      <div className="container"><h3>REPORT GENERATION SECTION</h3>
+      <button onClick={reportdaily}>daily series report </button>
+      <button  onClick={reportweekly}>weekly series report</button>
+      <button  onClick={reportmonthly}>monthly series report</button>
+      </div>
+
     </>
+
   );
 };
 

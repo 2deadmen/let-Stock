@@ -12,6 +12,8 @@ const StockState = (props) => {
   const [dailydata, setdailydata] = useState({})
   const [forgotemail, setforgotemail] = useState("")
   const [alert, setalert] = useState(null)
+  const [report, setreport] = useState("")
+  const [reporttype, setreporttype] = useState("")
   const showalert =(message,type)=>{
     setalert({
       msg:message,
@@ -23,7 +25,7 @@ const StockState = (props) => {
   }
 
     return (
-    <>  <NoteContext.Provider value={{alert,showalert,forgotemail,setforgotemail,indi,setindi,stockname,setstockname,diffkey,diffvalue,volarr,volkey,setdiffkey,setdiffvalue,setvolarr,setvolkey,gdata,setgdata,dailydata,setdailydata}}>
+    <>  <NoteContext.Provider value={{reporttype,setreporttype,report,setreport,alert,showalert,forgotemail,setforgotemail,indi,setindi,stockname,setstockname,diffkey,diffvalue,volarr,volkey,setdiffkey,setdiffvalue,setvolarr,setvolkey,gdata,setgdata,dailydata,setdailydata}}>
     {props.children}
 
 </NoteContext.Provider></>
