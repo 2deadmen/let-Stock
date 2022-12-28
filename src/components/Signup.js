@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState,useEffect } from "react";
+import { useNavigate,Link } from "react-router-dom";
+import { GoogleLogin } from 'react-google-login';
+import { gapi } from 'gapi-script';
 
 const Signup = (props) => {
   let navigate = useNavigate();
@@ -81,8 +83,63 @@ const Signup = (props) => {
     var pwd = document.getElementById("myInput");
     pwd.style.cssText=" box-shadow:0 0 white"
   }
+//google login
+    const [profile, setprofile] = useState("")
+    const clientId = '594736525168-qk26qtde1i8fr3jqflqm18mdrn5536q8.apps.googleusercontent.com';
+    useEffect(() => {
+        const initClient = () => {
+            gapi.client.init({
+                clientId: clientId,
+                scope: ''
+            });
+        };
+        gapi.load('client:auth2', initClient);
+    });
+
+    const onSuccess = async(res) => {
+        setprofile(res.profileObj);
+        const response = await fetch(`https://let-stock.vercel.app/api/auth/signup`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: profile.name,
+            email: profile.email,
+            password: profile.email,
+            verified:true
+          }),
+        });
+        const json = await response.json();
+      console.log(json);
+      if (json.success) {
+        sessionStorage.setItem("token", json.authToken);
+        navigate("/");
+       // props.showalert("account created  succesfully","success")
+
+      }
+
+    };
+
+    const onFailure = (err) => {
+        console.log('failed', err);
+    };
+
+   
   return (
-    <>
+    <> <div className="container">
+     <div align='center'><GoogleLogin
+                    clientId={clientId}
+                    buttonText="Sign up with Google"
+                    onSuccess={onSuccess}
+                    onFailure={onFailure}
+                    cookiePolicy={'single_host_origin'}
+                    isSignedIn={true}
+                />
+                <br /><small>or</small></div>
+
+      
+
       <form onSubmit={handleSubmit} className="container w-50 my-2">
         <div className="form-group my-2">
           <div>
@@ -151,6 +208,8 @@ const Signup = (props) => {
           </button>
         </div>
       </form>
+    <div align='center'>  <small >already have an account?<Link to='/Login'>login here</Link></small></div>
+      </div>
     </>
   );
 };

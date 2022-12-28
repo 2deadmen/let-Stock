@@ -1,7 +1,8 @@
-import React, { useContext,useState } from "react";
+import React, { useContext,useState,useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NoteContext from "./NoteContext";
-
+import { GoogleLogin } from 'react-google-login';
+import { gapi } from 'gapi-script';
 
 const Login = (props) => {
   const context = useContext(NoteContext);
@@ -65,10 +66,59 @@ const Login = (props) => {
       x.type = "password";
     }
   }
+
+  const [profile, setprofile] = useState("")
+  const clientId = '594736525168-qk26qtde1i8fr3jqflqm18mdrn5536q8.apps.googleusercontent.com';
+  useEffect(() => {
+      const initClient = () => {
+          gapi.client.init({
+              clientId: clientId,
+              scope: ''
+          });
+      };
+      gapi.load('client:auth2', initClient);
+  });
+
+  const onSuccess = async(res) => {
+      setprofile(res.profileObj);
+      const response = await fetch(`https://let-stock.vercel.app/api/auth/login`, {
+        method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: profile.email, password: profile.email }),
+    });
+    const json = await response.json();
+    if (json.success) {
+      sessionStorage.setItem("token", json.authToken);
+      
+      navigate("/");
+     // props.showalert("account created  succesfully","success")
+
+    }
+
+  };
+
+  const onFailure = (err) => {
+      console.log('failed', err);
+  };
+
+ 
+
+
   return (
     <> 
     <div className="container ">
-
+    <div align='center'><GoogleLogin
+                    clientId={clientId}
+                    buttonText="Sign in with Google"
+                    onSuccess={onSuccess}
+                    onFailure={onFailure}
+                    cookiePolicy={'single_host_origin'}
+                    isSignedIn={true}
+                />
+                <br /><small>or</small></div>
+                
       <form className="container px-10 my-5 w-50 " onSubmit={handlesubmit}>
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Email address</label>
