@@ -1,13 +1,17 @@
-import React, { useContext,useState,useEffect } from "react";
+import React, { useContext,useState,useEffect,useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import NoteContext from "./NoteContext";
 import { GoogleLogin } from 'react-google-login';
 import { gapi } from 'gapi-script';
+import Reaptcha from "reaptcha";
 
-const Login = (props) => {
+const Login = () => {
   const context = useContext(NoteContext);
     let { setforgotemail,showalert} =context;
+    const [captchaToken, setCaptchaToken] = useState(null);
+    const captchaRef = useRef(null);
 
+    const siteKey = "6LcHsLgjAAAAADwZWJSieOsbn4pz5iYspv-R9vkx";
 
   const [creds, setcreds] = useState({ email: "", password: "" });
   let navigate = useNavigate();
@@ -17,6 +21,13 @@ const Login = (props) => {
   };
   const handlesubmit = async (e) => {
     e.preventDefault();
+    if(captchaToken==null){
+      let text=document.getElementById('captcha')
+    text.innerHTML="complete Recaptcha before submitting"
+      text.style.color='red'
+    }
+    if(captchaToken){
+      
     const response = await fetch(`https://let-stock.vercel.app/api/auth/login`, {
       method: "POST",
       headers: {
@@ -31,6 +42,7 @@ const Login = (props) => {
       navigate("/");
       showalert("login successful","success")
     } else {
+    }
     }
   };
 
@@ -103,8 +115,13 @@ const Login = (props) => {
       console.log('failed', err);
   };
 
- 
-
+ //REcaptcha function
+  const verify = () => {
+    captchaRef.current.getResponse().then((res) => {
+      setCaptchaToken(res);
+    });
+    
+  };
 
   return (
     <> 
@@ -151,8 +168,14 @@ const Login = (props) => {
         </div> 
        
   
-
- 
+  {/* recaptcha */}
+<div>  <Reaptcha
+            sitekey={siteKey}
+            ref={captchaRef}
+            onVerify={verify}
+          ></Reaptcha>
+         <small id="captcha"></small>
+ </div>
 
 
         <button type="submit" className="btn btn-primary my-2">

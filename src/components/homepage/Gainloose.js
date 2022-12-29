@@ -9,7 +9,11 @@ const Gainloose = () => {
   //let loaded=false
   let token = sessionStorage.getItem("token");
   useEffect(() => {
-
+      if(diffkey.length >0){
+        setheading(true)
+      }else{
+        setheading(false)
+      }
       getstocks();
     // eslint-disable-next-line
   }, []);

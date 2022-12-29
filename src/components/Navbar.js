@@ -1,17 +1,20 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import {
   Link
   ,useNavigate,
   useLocation
   } from "react-router-dom";
-import { useState } from "react";
+  import NoteContext from "./NoteContext";
 import NavBarOff from './NavBarOff';
 const Navbar = () => {
+  const context = useContext(NoteContext);
+  let { showalert} =context;
   let navigate = useNavigate();
   let location=useLocation();
  let token=sessionStorage.getItem('token')
   const logout=()=>{
     sessionStorage.removeItem('token')
+    showalert('"successfully logged out","success"')
    navigate('/Login')
    //sessionStorage.clear()
 
@@ -42,7 +45,7 @@ const Navbar = () => {
         <Link className="nav-link" to="/About">About</Link>
       </li>
     </ul>
-   
+    
     {token?<>
       <NavBarOff/>
   <button className="btn-primary mx-2" onClick={logout}>Logout</button>

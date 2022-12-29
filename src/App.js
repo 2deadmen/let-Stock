@@ -10,9 +10,8 @@ import StockState from "./components/StockState";
 import Stock from "./components/stock/Stock";
 import Add from "./components/search/Add";
 import Profile from "./components/Profile";
-import Alert from "./Alert";
 import Reports from "./components/Reports";
-
+import Alert from './Alert';
 const App = () => {
  
   return (
@@ -23,8 +22,8 @@ const App = () => {
       <Router>
     
         <Navbar />
-     
-        <Alert/>
+     <Alert/>
+        
         <div >
           <Routes>
             <Route path="/" element={<Home />} />
