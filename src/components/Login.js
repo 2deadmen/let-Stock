@@ -52,7 +52,7 @@ const Login = () => {
   const handleforgot= async (e)=>{
     e.preventDefault();
     if (creds.email===""){
-      alert("email is required")
+      showalert("email is required","danger")
       
     }
 
@@ -68,7 +68,7 @@ const Login = () => {
     const json = await response.json();
     
     setTimeout(() => {
-      alert("password reset email is sent your given gmail")
+      showalert("password reset email is sent your given gmail","success")
       
     }, 1000);
   }
@@ -186,9 +186,9 @@ const Login = () => {
         </button> <br />
         <small>Don't have an account?<Link to='/Signup'>register here</Link>
   </small>
+  <small className="mx-4"><Link onClick={handleforgot}>forgot password..??</Link></small>
       </form>
       
-      <form className="float-right" >  <button className="" type="submit" onClick={handleforgot}>forgot password..?</button></form>
       </div>  </>
   );
 };
