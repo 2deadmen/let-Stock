@@ -20,7 +20,10 @@ router.post('/addstock', fetchuser, async (req, res) => {
         try {
 
             const { title,name } = req.body;
-
+            let user= await Stock.findOne({title:req.body.title})
+            if(user)
+             { return res.status(400).json({error:"Stock already exists "});
+        }
             // If there are errors, return Bad request and the errors
             const errors = validationResult(req);
             if (!errors.isEmpty()) {

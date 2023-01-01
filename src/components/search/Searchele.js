@@ -3,8 +3,9 @@ import NoteContext from "../NoteContext";
 import { Link } from "react-router-dom";
 const Searchele = (props) => {
    let {symbol,name}=props
+
    let context = useContext(NoteContext);
-   const { setindi ,setstockname } = context;
+   const { setindi ,setstockname,showalert } = context;
 
    const setname=(symbol,name)=>{
 
@@ -26,7 +27,9 @@ const Searchele = (props) => {
      body: JSON.stringify({title:symbol,name:name})
 
    })
-   console.log(response.status)
+   if(response.status===200){
+    showalert(`added ${name} to favourites`,"success")
+   }
    
 }
     catch{}

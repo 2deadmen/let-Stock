@@ -4,7 +4,8 @@ import {
   ,useNavigate,
   useLocation
   } from "react-router-dom";
-  import NoteContext from "./NoteContext";
+import Alert from '../Alert';
+import NoteContext from "./NoteContext";
 import NavBarOff from './NavBarOff';
 const Navbar = () => {
   const context = useContext(NoteContext);
@@ -14,7 +15,7 @@ const Navbar = () => {
  let token=sessionStorage.getItem('token')
   const logout=()=>{
     sessionStorage.removeItem('token')
-    showalert('"successfully logged out","success"')
+    showalert("come back soon","success")
    navigate('/Login')
    //sessionStorage.clear()
 
@@ -44,6 +45,7 @@ const Navbar = () => {
       <li className="nav-item">
         <Link className="nav-link" to="/About">About</Link>
       </li>
+      <li><div><Alert/></div></li>
     </ul>
     
     {token?<>
@@ -59,9 +61,9 @@ const Navbar = () => {
   </div>
 
  
+
 </nav>
 {/* off canvas navbar*/}
-
 
     </>
   )

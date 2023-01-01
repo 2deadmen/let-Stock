@@ -1,9 +1,10 @@
 
-
-import React,{useState,useEffect} from 'react'
+import NoteContext from "../NoteContext";
+import React,{useState,useContext} from 'react'
 import Searchele from './Searchele';
 
 const Add = () => {
+
   let Data=[]
   const [Results, setResults] = useState(Data)
 const [stock,setstock]=useState({searchbar:""})
@@ -32,7 +33,7 @@ const onChange = (e) => {
            Data.push(newjson)
               
          }
-         console.log(Data)
+       
          setResults(Data)
  
     }

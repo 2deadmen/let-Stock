@@ -1,10 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef,useContext} from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import Reaptcha from "reaptcha";
+import NoteContext from "./NoteContext";
+
 
 const Signup = () => {
+  const context = useContext(NoteContext);
+  let {showalert} =context;
   let navigate = useNavigate();
   const [captchaToken, setCaptchaToken] = useState(null);
   const captchaRef = useRef(null);
@@ -54,7 +58,8 @@ const Signup = () => {
         navigate("/");
         // props.showalert("account created  succesfully","success")
       } else {
-        //   props.showalert("wrong credentials","danger")
+        let alert=json['error']
+        showalert(alert,"danger")
       }
     } else {
       //props.showalert("passwords do not match","danger")
@@ -184,6 +189,7 @@ const Signup = () => {
                 className="form-control"
                 onChange={onchange}
                 type="text"
+                required
                 placeholder=" Enter your Name"
                 id="name"
                 name="name"
@@ -197,6 +203,7 @@ const Signup = () => {
               type="email"
               className="form-control"
               name="email"
+              required
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Enter email"

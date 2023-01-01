@@ -7,12 +7,12 @@ import Profile from './Profile';
 
 const NavBarOff = () => {
     
-  const [seed, setseed] = useState()
+
   const [open, setopen] = useState(false)
     function openNav() {
       document.getElementById("mySidenav").style.width = "400px";
       setopen(true)
-      setseed(Math.random())
+     
 
     }
     
@@ -22,7 +22,7 @@ const NavBarOff = () => {
      if (open) {
         document.getElementById("mySidenav").style.width = "0";
         setopen(false)
-        setseed(Math.random())
+       
      }
     }
    
@@ -42,7 +42,7 @@ const NavBarOff = () => {
   
 <div  id="mySidenav" className="sidenav">
   <Link  className="closebtn" onClick={closeNav}>&times;</Link>
-  <Profile key={seed}/>
+  <Profile />
 </div>
 
 

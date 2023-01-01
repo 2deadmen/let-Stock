@@ -36,12 +36,15 @@ const Login = () => {
       body: JSON.stringify({ email: creds.email, password: creds.password }),
     });
     const json = await response.json();
+
     if (json.success) {
       sessionStorage.setItem("token", json.authToken);
-      
       navigate("/");
-      showalert("login successful","success")
+      showalert("Hello there..!!!","success")
     } else {
+      let alert=json['errors'][0]['msg']
+      showalert(alert,"danger")
+      
     }
     }
   };

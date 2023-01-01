@@ -1,5 +1,6 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState,useContext} from 'react'
 import { useNavigate } from 'react-router-dom'
+import NoteContext from "./NoteContext";
 const Profile = () => {
   const [name, setname] = useState()
   const [verified, setverified] = useState()
@@ -18,7 +19,8 @@ useEffect(() => {
  
 },[])
 let navigate=useNavigate();
-
+const context = useContext(NoteContext);
+let {showalert} =context;
 
 
 const fetchuserdata=async()=>{
@@ -70,7 +72,7 @@ const getstocks = async () => {
     headers: { "auth-token": sessionStorage.getItem("token") },
   });
   let json = await response.json()
-  for (let i = 0; i < json.length; i++) {
+  for (let i = 0; i < Object.keys(json).length; i++) {
     let value = json[i];
     let name = value["name"];
     let id=value["_id"];
@@ -78,26 +80,33 @@ const getstocks = async () => {
     stockid[value]=id
     stock[i]=value;
     stocknameobj[value] = name;
-    
-  
   }
   setstate()
 };
 
-const handledelete=async(id)=>{
+const handledelete=async(id,element)=>{
   const response = await fetch(`https://let-stock.vercel.app/api/stocks/deletestock/${id}`, {
     method: "DELETE",
     headers: { "auth-token": sessionStorage.getItem("token") },
    
   });
   let json = await response.json()
+  if(json['success']){
+    showalert("deleted one stock","success")
+  }
+  setstock(stock.filter(item => item !== element))
+  console.log(stock)
+reload()
+
+}
+const reload=()=>{
   getstocks()
   setstate()
-
 }
 
 const setstate=()=>{
-  setseed(Math.random(0,10))
+  setseed(Math.random(0,4))
+
 }
   return (
     <>
@@ -105,6 +114,7 @@ const setstate=()=>{
     
     <h3 className='mx-4'> <i class="fa-solid  fa-user"></i></h3>
    <div className="container" > <div className="container">pic</div>
+
     <div className="container"  id='details'>Name : {name} <button align="center" onClick={handleedit}><i className="far fa-edit fa-lg"></i></button></div>   
 {save?    <input type="button" value="save" onClick={()=>update(document.getElementById('name').value)} />
 :null
@@ -117,13 +127,13 @@ const setstate=()=>{
       
       
       </div>
-      <h4>your favourites</h4>
+      <h4>your favourites</h4> <button> <i onClick={reload} class="fa-solid fa-rotate-right"></i></button>
       </div>
    
-       <div className="container">
+       <div  className="container">
            {stock.map((element)=>{
             return(
-            <p key={element}>   {element} ----{stocknameobj[element]} <button onClick={()=>handledelete(stockid[element])}><i className="fa fa-trash" aria-hidden="true"></i></button> </p>
+            <p key={stocknameobj[element]}>   {element} ----{stocknameobj[element]} <button onClick={()=>handledelete(stockid[element],element)}><i className="fa fa-trash" aria-hidden="true"></i></button> </p>
             ); })}
        </div></div>
     </>
