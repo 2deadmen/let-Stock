@@ -30,6 +30,10 @@ const Searchele = (props) => {
    if(response.status===200){
     showalert(`added ${name} to favourites`,"success")
    }
+   else if(response.status===400){
+    showalert(`${name} is already in your favourites `,"success")
+
+   }
    
 }
     catch{}
