@@ -20,7 +20,7 @@ router.post('/addstock', fetchuser, async (req, res) => {
         try {
 
             const { title,name } = req.body;
-            const stocks = await Stock.find({ user: req.user.id ,title:title});
+            const stocks = await Stock.findOne({ user: req.user.id ,title:title});
             if(stocks)
              { return res.status(400).json({error:"Stock already exists "});
         }
