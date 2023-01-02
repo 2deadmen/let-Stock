@@ -20,7 +20,7 @@ const Signup = () => {
     password: "",
     cpassword: "",
   });
-
+ 
   const onchange = (e) => {
     setcreds({ ...creds, [e.target.name]: e.target.value });
   };
@@ -31,6 +31,7 @@ const Signup = () => {
     text.innerHTML="complete Recaptcha before submitting"
       text.style.color='red'
     }
+   
     if(creds.password !== creds.cpassword){
       let text=document.getElementById('captcha')
     text.innerHTML="Passwords do not match..!!!"
@@ -124,8 +125,11 @@ const Signup = () => {
       });
     };
     gapi.load("client:auth2", initClient);
+  
   });
-
+  setTimeout(() => {
+    setCaptchaToken(null)
+  }, 60000);
   const onSuccess = async (res) => {
     setprofile(res.profileObj);
     const response = await fetch(
@@ -161,11 +165,23 @@ const Signup = () => {
     });
     
   };
+  const expire = () => {
+    captchaRef.current.getResponse().then(() => {
+      setCaptchaToken(null);
+    });
+    
+  };
+  const error = () => {
+    captchaRef.current.getResponse().then(() => {
+      setCaptchaToken(null);
+    });
+    
+  };
 
   return (
     <>
       {" "}
-      <div className="container">
+      <div className="container my-2">
         <div align="center">
           <GoogleLogin
             clientId={clientId}
@@ -176,7 +192,7 @@ const Signup = () => {
             isSignedIn={true}
           />
           <br />
-          <small>or</small>
+          <small className="my-2">or</small>
         </div>
 
         <form onSubmit={handleSubmit} className="container w-50 my-2">
@@ -253,6 +269,8 @@ const Signup = () => {
             sitekey={siteKey}
             ref={captchaRef}
             onVerify={verify}
+            onExpire={expire}
+            onError={error}
           ></Reaptcha>
          <small id="captcha"></small>
           <div>

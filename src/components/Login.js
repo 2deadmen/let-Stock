@@ -42,7 +42,7 @@ const Login = () => {
       navigate("/");
       showalert("Hello there..!!!","success")
     } else {
-      let alert=json['errors'][0]['msg']
+      let alert=json['error']
       showalert(alert,"danger")
       
     }
@@ -92,8 +92,9 @@ const Login = () => {
           });
       };
       gapi.load('client:auth2', initClient);
+  
   });
-
+  
   const onSuccess = async(res) => {
       setprofile(res.profileObj);
       const response = await fetch(`https://let-stock.vercel.app/api/auth/login`, {
@@ -104,11 +105,13 @@ const Login = () => {
       body: JSON.stringify({ email: profile.email, password: profile.email }),
     });
     const json = await response.json();
+
     if (json.success) {
       sessionStorage.setItem("token", json.authToken);
       
       navigate("/");
-     // props.showalert("account created  succesfully","success")
+      showalert("Hello there..!!!","success")
+     
 
     }
 
@@ -125,10 +128,22 @@ const Login = () => {
     });
     
   };
-
+  const expire = () => {
+    captchaRef.current.getResponse().then(() => {
+      setCaptchaToken(null);
+    });
+    
+  };
+  const error = () => {
+    captchaRef.current.getResponse().then(() => {
+      setCaptchaToken(null);
+    });
+    
+  };
+ 
   return (
     <> 
-    <div className="container ">
+    <div className="container my-2">
     <div align='center'><GoogleLogin
                     clientId={clientId}
                     buttonText="Sign in with Google"
@@ -137,7 +152,7 @@ const Login = () => {
                     cookiePolicy={'single_host_origin'}
                     isSignedIn={true}
                 />
-                <br /><small>or</small></div>
+                <br /><small className="">or</small></div>
                 
       <form className="container px-10 my-5 w-50 " onSubmit={handlesubmit}>
         <div className="form-group">
@@ -162,7 +177,7 @@ const Login = () => {
             type="password"
             className="form-control"
             required
-            minLength={5}
+            minLength={8}
             name="password"
             id="myInput"
             onChange={onChange}
@@ -176,6 +191,8 @@ const Login = () => {
             sitekey={siteKey}
             ref={captchaRef}
             onVerify={verify}
+            onExpire={expire}
+            onError={error}
           ></Reaptcha>
          <small id="captcha"></small>
  </div>

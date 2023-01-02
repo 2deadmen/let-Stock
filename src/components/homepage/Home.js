@@ -4,6 +4,7 @@ import Logger from "./Logger"
 import './homepage.css'
 import Gainloose from "./Gainloose"
 import News from "./News"
+import Slider from "./Slider"
 
 const Home = () => {
 const [seed, setseed] = useState()
@@ -17,7 +18,7 @@ useEffect(() => {
   
    {!token?<Logger  />:null}
     <div></div>
-   
+   <Slider/>
     <Gainloose/>
     <News/>
     </div>
