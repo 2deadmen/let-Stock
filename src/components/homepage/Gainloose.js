@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 
 import { Link } from "react-router-dom";
 import NoteContext from "../NoteContext";
-
+import './Gainloose.css'
 
 const Gainloose = () => {
  
@@ -220,28 +220,29 @@ const Gainloose = () => {
   };
 
   return (
-    <div>
-      <button
-        className="btn-primary float-right"
+   <div className="outer">
+     <div className="gainloose container">
+      Its free DATA ...so use it wisely <button
+        className="btn float-right"
         // onMouseOver={getstocks}
         onClick={fetchcompanies}
       >
         {" "}
       fetch data
-      </button>
+      </button><br /><br />
       {/* <button className="btn-primary" onClick={getstocks}>to fetch from db</button> */}
 
       <>
         {" "}
-        {heading ?<div className="container">
+        {heading ?<div className=" container">
         <div className="container ">
-          <h3>trending by change in market</h3>
+          <h3> &nbsp;Trending by change in market</h3>
           <table>
             <thead>
               <tr>
-                <th>name</th>
-                <th>symbol</th>
-                <th>change</th>
+                <th>&nbsp; &nbsp; Name</th>
+                <th>&nbsp;  &nbsp;Symbol</th>
+                <th>&nbsp; &nbsp; Change</th>
               </tr>
             </thead>{" "}
             <tbody>
@@ -249,41 +250,43 @@ const Gainloose = () => {
                 return (
                   <tr key={Index}>
                     {" "}
-                    <Link
+                    <Link  className="links"
                       to="/Stock"
                       onClick={() => taketoInd(element, stocknameobj[element],Index)}
                     >
                       <td>{stocknameobj[element]}</td>
                     </Link>
-                    <td>{element}</td> <td>{diffvalue[Index]}</td>
+                    <td>{element}</td> <td className="values">{(volarr[Index]> 0)? <span> +{diffvalue[Index]} &#8593;	 </span>: <span style={{color:'brown'}}>-{diffvalue[Index]}&#8595;</span>}</td>
+                  <hr />
                   </tr>
                 );
               })}
             </tbody>
           </table>
         </div>
-        <div className="container ">
-          <h3>trending by volume in market</h3>
+        <div className="container my-2 ">
+          <h3> &nbsp;Trending by volume in market</h3>
           <table>
             <thead>
               <tr>
-                <th>name</th>
-                <th>symbol</th>
-                <th>volume</th>
+                <th>&nbsp;  &nbsp; Name</th>
+                <th>&nbsp;  &nbsp; Symbol</th>
+                <th> &nbsp;&nbsp;  Volume</th>
               </tr>
             </thead>{" "}
             <tbody>
               {volkey.map((element, Index) => {
                 return (
-                  <tr key={Index}>
-                    <Link
+                  <tr  key={Index}>
+                    <Link className="links"
                       to="/Stock"
                       onClick={() => taketoInd(element, stocknameobj[element],Index)}
                     >
-                      <td>{stocknameobj[element]}</td>
+                      <td >{stocknameobj[element]}</td>
                     </Link>{" "}
                     <td>{element}</td>
-                    <td>{volarr[Index]}</td>
+                    <td className="values">{(volarr[Index]> 0)? <span>{volarr[Index]}</span> : <span style={{color:'brown'}}>-{volarr[Index]}</span>} </td>
+                  <hr />
                   </tr>
                 );
               })}
@@ -293,6 +296,7 @@ const Gainloose = () => {
         </div>:null}
       </>
     </div>
+   </div>
   );
 };
 

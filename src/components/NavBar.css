@@ -1,0 +1,21 @@
+.navbar-brand{
+    color: #0F393A;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+}
+.navbar-brand:hover{
+    transition:ease-in-out;
+    box-shadow: 0;
+}
+.navbar{
+    box-shadow: 0px 15px 10px -15px #0F393A;
+
+}
+body{
+    color: rgb(122, 121, 121);
+    
+}
+h1,h2,h3,h4,h5,h6{
+    color: black;
+}

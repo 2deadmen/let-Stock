@@ -1,0 +1,10 @@
+.news{
+    padding-top: 5vh;
+    background-image: url('https://img.freepik.com/premium-vector/financial-business-statistics-with-bar-graph-candlestick-chart-show-effective-earning-background_120819-1005.jpg?w=2000');
+    background-position: right;
+      background-repeat: no-repeat;
+        background-size: cover;
+}
+body{
+    background-color: rgb(211, 210, 210);
+}

@@ -1,0 +1,33 @@
+.links{
+    color: #1E7376;
+}
+.links:hover{
+    color:rgb(55, 192, 55)
+}
+td{
+    padding-left: 1vw;
+    padding-right: 1vw;
+    padding-top: 1vh;
+
+}
+
+.gainloose{
+    padding-top: 5vh;
+    background-image: url('https://img.freepik.com/premium-vector/financial-business-statistics-with-bar-graph-candlestick-chart-show-effective-earning-background_120819-1005.jpg?w=2000');
+    background-position: right;
+      background-repeat: no-repeat;
+        background-size: cover;
+        padding-bottom: 5vh;
+        font-weight: 500;
+}
+.outer{
+
+}
+
+tr{
+    text-align: left  ;
+    font-weight: 500;
+}
+.values{
+    color: green;
+}

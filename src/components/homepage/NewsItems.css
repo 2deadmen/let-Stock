@@ -1,0 +1,14 @@
+.pill{
+right: 250px;
+ background-color: #0F393A;
+ padding: 150%;
+ color: white;
+
+}
+.card{
+    box-shadow: 0px 15px 10px -15px #0F393A;
+
+}
+.btn{
+    background-color:#0F393A;
+}

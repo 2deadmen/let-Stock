@@ -57,7 +57,7 @@ const Signup = () => {
       if (json.success) {
         sessionStorage.setItem("token", json.authToken);
         navigate("/");
-        // props.showalert("account created  succesfully","success")
+        showalert("Be sure to check your mail for activation link","success")
       } else {
         let alert=json['error']
         showalert(alert,"danger")
@@ -152,7 +152,7 @@ const Signup = () => {
     if (json.success) {
       sessionStorage.setItem("token", json.authToken);
       navigate("/");
-      // props.showalert("account created  succesfully","success")
+     showalert("Be sure to check your mail for activation link","success")
     }
   };
 
@@ -274,7 +274,7 @@ const Signup = () => {
           ></Reaptcha>
          <small id="captcha"></small>
           <div>
-            <button type="submit" className="btn btn-primary my-2 ">
+            <button type="submit" className="btn  my-2 ">
               Submit
             </button>
           </div>

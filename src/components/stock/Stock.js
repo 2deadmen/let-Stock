@@ -13,6 +13,7 @@ import candlestick from "fusioncharts/fusioncharts.charts";
 // // Step 5 - Include the theme as fusion
 import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
 import Sentiment from "./Sentiment";
+import Premium from "../homepage/Premium";
 
 // // Step 6 - Adding the chart and theme as dependency to the core fusioncharts
 ReactFC.fcRoot(FusionCharts, candlestick, FusionTheme);
@@ -196,8 +197,8 @@ const [monthlyData, setmonthlyData] = useState({})
           id: "chart",
 
           theme: "fusion",
-          caption: `weekly Stock Price ${element}`,
-          subCaption: "Last 2 months",
+          caption: `Weekly Stock Price ${element}`,
+          subCaption: "Covered Last 20+ years historic data",
           numberprefix: "$",
           vNumberPrefix: " ",
           pyaxisname: "Price",
@@ -213,16 +214,16 @@ const [monthlyData, setmonthlyData] = useState({})
           {
             category: [
               {
-                label: "2 month ago",
+                label: " 20 years ago",
                 x: "1",
               },
               {
-                label: "1 month ago",
-                x: "51",
+                label: "10 years ago",
+                x:  (Object.keys(jsondata).length)/2
               },
               {
                 label: "Today",
-                x: "100",
+                x: Object.keys(jsondata).length,
               },
             ],
           },
@@ -269,8 +270,8 @@ const [monthlyData, setmonthlyData] = useState({})
           id: "chart",
 
           theme: "fusion",
-          caption: `monthly Stock Price ${element}`,
-          subCaption: "Last 2 months",
+          caption: `Monthly Stock Price ${element}`,
+          subCaption: "Covered Last 20+ years historic data",
           numberprefix: "$",
           vNumberPrefix: " ",
           pyaxisname: "Price",
@@ -286,16 +287,16 @@ const [monthlyData, setmonthlyData] = useState({})
           {
             category: [
               {
-                label: "2 month ago",
-                x: "1",
+                label: "20 years ago",
+                x:  "1"
               },
               {
-                label: "1 month ago",
-                x: "51",
+                label: "10 years ago",
+                x: (Object.keys(jsondata).length)/2
               },
               {
                 label: "Today",
-                x: "100",
+                x: Object.keys(jsondata).length,
               },
             ],
           },
@@ -400,6 +401,7 @@ const [monthlyData, setmonthlyData] = useState({})
           </button>
         </div>
       </div>
+      <Premium/>
       <Sentiment element={sessionStorage.getItem("indi")} />
    
       <div className="container"><h3>REPORT GENERATION SECTION</h3>

@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import NewsItem from './NewsItem'
+import './News.css'
 
 const News = () => {
     const [articles, setArticles] = useState([])
@@ -20,16 +21,17 @@ const News = () => {
     }, [])
  
     return (
-    <> <div className="container ">
-                         
-    <div className="row">
-        {articles.map((element) => {
-            return <div className="col-md-4" key={element.url}>
-                <NewsItem title={element.title ? element.title : ""} description={element.description ? element.description : ""} imageUrl={element.urlToImage} newsUrl={element.url} author={element.author} date={element.publishedAt} source={element.source.name} />
-            </div>
-        })}
-    </div>
-    </div> </>
+    <><div className='outer'> <div className="news container  ">
+    <h4>The News Board <i class="fa-solid fa-thumbtack"></i></h4>
+    The top news articles from across the world are pinned here...Just for you...
+<div className="row">
+{articles.map((element) => {
+return <div className="col-md-4" key={element.url}>
+<NewsItem title={element.title ? element.title : ""} description={element.description ? element.description : ""} imageUrl={element.urlToImage} newsUrl={element.url} author={element.author} date={element.publishedAt} source={element.source.name} />
+</div>
+})}
+</div>
+</div> </div></>
   )
 }
 

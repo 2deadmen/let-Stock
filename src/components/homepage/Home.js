@@ -4,7 +4,9 @@ import Logger from "./Logger"
 import './homepage.css'
 import Gainloose from "./Gainloose"
 import News from "./News"
-import Slider from "./Slider"
+import './Home.css'
+import Premium from "./Premium"
+import Banner from "./Banner"
 
 const Home = () => {
 const [seed, setseed] = useState()
@@ -17,8 +19,9 @@ useEffect(() => {
     <div id={seed} className="homebody">
   
    {!token?<Logger  />:null}
-    <div></div>
-   <Slider/>
+ 
+   <Banner/>
+   <Premium/>
     <Gainloose/>
     <News/>
     </div>

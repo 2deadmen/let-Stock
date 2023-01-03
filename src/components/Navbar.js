@@ -7,6 +7,7 @@ import {
 import Alert from '../Alert';
 import NoteContext from "./NoteContext";
 import NavBarOff from './NavBarOff';
+import './NavBar.css'
 const Navbar = () => {
   const context = useContext(NoteContext);
   let { showalert} =context;
@@ -50,7 +51,7 @@ const Navbar = () => {
     
     {token?<>
       <NavBarOff/>
-  <button className="btn-primary mx-2" onClick={logout}>Logout</button>
+  <button className="btn mx-2" onClick={logout}>Logout</button>
  {/* {location.pathname==='/Profile'?null: <Link className='btn-primary mx-2 p-1' to="/Profile">profile</Link> */}
 
 
