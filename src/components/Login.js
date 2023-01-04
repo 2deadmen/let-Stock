@@ -85,6 +85,7 @@ const Login = () => {
   const [profile, setprofile] = useState("")
   const clientId = '594736525168-qk26qtde1i8fr3jqflqm18mdrn5536q8.apps.googleusercontent.com';
   useEffect(() => {
+   
       const initClient = () => {
           gapi.client.init({
               clientId: clientId,
@@ -136,10 +137,31 @@ const Login = () => {
   };
   const error = () => {
     captchaRef.current.getResponse().then(() => {
-      setCaptchaToken(null);
+      captchaRef.current.reset()
     });
     
   };
+  
+  const styling=()=>{
+    let btn  = document.getElementById('exampleInputEmail1')
+    btn.style.cssText='box-shadow: 0px 15px 10px -15px #0F393A;border:1.5px solid  #0F393A'
+    
+    btn.addEventListener('blur',()=>{
+      btn.style.cssText=''
+    })
+
+
+  }
+  const styling1=()=>{
+    let btn  = document.getElementById('myInput')
+    btn.style.cssText='box-shadow: 0px 15px 10px -15px #0F393A;border:1.5px solid  #0F393A'
+    
+    btn.addEventListener('blur',()=>{
+      btn.style.cssText=''
+    })
+
+
+  }
  
   return (
     <> 
@@ -158,6 +180,7 @@ const Login = () => {
         <div className="form-group">
           <label htmlFor="exampleInputEmail1">Email address</label>
           <input
+           onFocus={styling}
             onChange={onChange}
             type="email"
             className="form-control"
@@ -174,6 +197,7 @@ const Login = () => {
         <div className="form-group">
           <label htmlFor="exampleInputPassword1">Password</label>
     <input
+    onFocus={styling1}
             type="password"
             className="form-control"
             required

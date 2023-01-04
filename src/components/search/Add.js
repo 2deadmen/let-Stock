@@ -37,22 +37,32 @@ const onChange = (e) => {
          setResults(Data)
  
     }
+    const styling=()=>{
+      let btn  =document.getElementById('searchbar')
+      btn.style.cssText='box-shadow: 0px 15px 10px -15px #0F393A;border:1px solid  #0F393A'
+      
+      btn.addEventListener('blur',()=>{
+        btn.style.cssText=''
+      })
+
+
+    }
 
     return (
     <div className='container m-4'>
-      <form className="form-inline my-2  my-lg-0" >
-      <input className="form-control mr-sm-2" name="searchbar" id='searchbar' type="search" onChange={onChange} placeholder="Search" aria-label="Search"/>
-      <button className="btn btn-outline-success mx-2 my-2 my-sm-0" onClick={search} type="submit">Search</button>
+      <form   className="  form-inline m-3 " >
+      <input className="form-control mr-sm-2 " name="searchbar" id='searchbar' onFocus={styling} type="search" onChange={onChange} placeholder="Search" aria-label="Search"/>
+      <button className="btn  mx-2 my-2 my-sm-0 searchbar"  onClick={search} type="submit">Search</button>
     </form>
  
-
+<table  cellPadding={10}>
     {Results.map((element) => {
-                            return <div className="col-md-4" key={element.symbol}>
-                                <Searchele symbol={element.symbol ? element.symbol : ""} name={element.name ? element.name : ""} />
-                            </div>
-                        })}
+                            return <tr className="" key={element.symbol}>
+                              <Searchele symbol={element.symbol ? element.symbol : ""} name={element.name ? element.name : ""} />
+                               </tr>
+                        })} 
     
-    {/* <button className="btn-primary" onClick={handle}>add new stock</button> */}
+    {/* <button className="btn-primary" onClick={handle}>add new stock</button> */}</table>
     </div>
   )
 }

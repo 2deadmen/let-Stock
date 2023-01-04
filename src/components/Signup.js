@@ -80,6 +80,7 @@ const Signup = () => {
 
   const strengthcheck = () => {
     var pwd = document.getElementById("myInput");
+    pwd.style.cssText='border:1.5px solid #0F393A;box-shadow: 0px 15px 10px -15px #0F393A;'
     var strength = document.getElementById("strength");
     var strongRegex = new RegExp(
       "^(?=.{14,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$",
@@ -97,15 +98,15 @@ const Signup = () => {
       strength.innerHTML = "Give atleast 8 Characters";
     } else if (strongRegex.test(pwd.value)) {
       strength.innerHTML = '<span style="color:green">Strong!</span>';
-      pwd.style.cssText = " box-shadow: 0 1px 5px 0 green";
+      pwd.style.cssText = " box-shadow: 0 1px 5px 0 green;border:1.5px solid #0F393A;";
     } else if (mediumRegex.test(pwd.value)) {
       strength.innerHTML =
         '<span style="color:orange">Medium!Use combination of special characters and symbols</span>';
-      pwd.style.cssText = " box-shadow:0 1px 5px 0  orange";
+      pwd.style.cssText = " box-shadow:0 1px 5px 0  orange;border:1.5px solid #0F393A;";
     } else {
       strength.innerHTML =
         '<span style="color:red">Weak! Use combination of uppercase letters, lowercase letters, numbers, and symbols</span>';
-      pwd.style.cssText = " box-shadow:0 1px 5px 0 red";
+      pwd.style.cssText = " box-shadow:0 1px 5px 0 red;border:1.5px solid #0F393A; ";
     }
   };
 
@@ -173,10 +174,18 @@ const Signup = () => {
   };
   const error = () => {
     captchaRef.current.getResponse().then(() => {
-      setCaptchaToken(null);
+      captchaRef.current.reset()
     });
     
   };
+  const styling=(n)=>{
+    let btn  = document.getElementById(n)
+    btn.style.cssText='box-shadow: 0px 15px 10px -15px #0F393A;border:1.5px solid  #0F393A'
+    
+    btn.addEventListener('blur',()=>{
+      btn.style.cssText=''
+    })
+  }
 
   return (
     <>
@@ -206,7 +215,9 @@ const Signup = () => {
                 onChange={onchange}
                 type="text"
                 required
+                minLength={3}
                 placeholder=" Enter your Name"
+                onFocus={()=>styling("name")}
                 id="name"
                 name="name"
               />
@@ -220,6 +231,7 @@ const Signup = () => {
               className="form-control"
               name="email"
               required
+              onFocus={()=>styling("exampleInputEmail1")}
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
               placeholder="Enter email"
@@ -234,9 +246,10 @@ const Signup = () => {
               type="password"
               className="form-control"
               required
-              minLength={5}
+              minLength={8}
               name="password"
               id="myInput"
+              onFocus={()=>styling("myInput")}
               onChange={onchange}
               onKeyUp={strengthcheck}
               onBlur={removestyle}
@@ -254,7 +267,8 @@ const Signup = () => {
             <input
               onChange={onchange}
               required
-              minLength={5}
+              minLength={8}
+              onFocus={()=>styling("confirmpass")}
               type="password"
               name="cpassword"
               className="form-control"
