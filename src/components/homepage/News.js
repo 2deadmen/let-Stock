@@ -5,13 +5,13 @@ import './News.css'
 const News = () => {
     const [articles, setArticles] = useState([])
     const [totalResults, setTotalResults] = useState(0)
-    const api="5beeaf5b46fa43218177b1a7a1ec5891"
+  //  const api="5beeaf5b46fa43218177b1a7a1ec5891"
     const updateNews = async ()=> {
-        const url = ` https://newsapi.org/v2/everything?q=stocks&apiKey=${api}&pageSize=6`; 
-        let data = await fetch(url);
-        let parsedData = await data.json()
-        setArticles(parsedData.articles)
-        setTotalResults(parsedData.totalResults)
+      //  const url = ` https://newsapi.org/v2/everything?q=stocks&apiKey=${api}&pageSize=6`; 
+      //  let data = await fetch(url);
+       // let parsedData = await data.json()
+        //setArticles(parsedData.articles)
+        //setTotalResults(parsedData.totalResults)
 
     }
 
