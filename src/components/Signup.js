@@ -13,7 +13,7 @@ const Signup = () => {
   const [captchaToken, setCaptchaToken] = useState(null);
   const captchaRef = useRef(null);
 
-  const siteKey = "6LcHsLgjAAAAADwZWJSieOsbn4pz5iYspv-R9vkx";
+  const siteKey = "6LePmtQjAAAAAAHetX1HtF_xl_ShiWOtwuB0Jcgt";
   const [creds, setcreds] = useState({
     name: "",
     email: "",
