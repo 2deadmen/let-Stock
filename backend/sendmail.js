@@ -47,7 +47,7 @@ const sendResetPasswordEmail = ({toUser, hash}) => {
     subject: 'Let`Stock - Reset Password',
     html: `
       <h3>Hello ${toUser} </h3>
-      <p>To reset your password please follow this link: <a target="_" href="http://localhost:3000//Resetpass?email=${toUser}">Reset Password Link</a></p>
+      <p>To reset your password please follow this link: <a target="_" href="http://localhost:3000/Resetpass?email=${toUser}">Reset Password Link</a></p>
       <p>this is your one time password for resetting the password ---<button>${hash}</button> </p>
       <p>Cheers,</p>
       <p>Let'Stock Application Team</p>
