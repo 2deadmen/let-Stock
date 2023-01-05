@@ -8,6 +8,7 @@ import Alert from '../Alert';
 import NoteContext from "./NoteContext";
 import NavBarOff from './NavBarOff';
 import './NavBar.css'
+import pic from './logo-r.png'
 const Navbar = () => {
   const context = useContext(NoteContext);
   let { showalert} =context;
@@ -30,7 +31,7 @@ const Navbar = () => {
     <nav className="navbar navbar-expand-lg  sticky-top navbar-light bg-light">
 
   
-  <Link className="navbar-brand" to="/">Let'Stock</Link>
+  <Link className="navbar-brand" to="/"> <img className='' src={pic} width={150} height={50} alt=""/> </Link> 
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>

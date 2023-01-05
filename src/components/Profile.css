@@ -1,0 +1,30 @@
+.icon{
+    color: #0F393A;
+}
+button{
+    border:0;
+    color: #0F393A;
+}
+.refresh-btn{
+    float: right;
+
+    top:47%;
+    left: 70%;
+}
+.name-save{
+    float:right;
+    position: absolute;
+    top: 21%;
+    left:80%
+    
+}
+.name-change{
+    box-shadow: 0px 15px 10px -15px #0F393A;
+    margin-left: 10%;
+}
+.verifi{
+    color: #0F393A;
+}
+.icon{
+  color: #0F393A !important;
+}

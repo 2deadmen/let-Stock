@@ -15,7 +15,7 @@ const NewsItem =(props)=> {
                     }
                     }>
                         
-                        <span className="pill"> <i class="fa-solid fa-thumbtack"></i> </span>
+                        <span className="pill"> <i className="fa-solid fa-thumbtack"></i> </span>
 
                         
                     </div>

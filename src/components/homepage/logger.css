@@ -35,3 +35,7 @@ border-radius: 10%;} */
 .loggerbtn{
    float: right;
 }
+
+@media (max-width:968px)  {
+
+}

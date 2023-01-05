@@ -14,6 +14,7 @@ import candlestick from "fusioncharts/fusioncharts.charts";
 import FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
 import Sentiment from "./Sentiment";
 import Premium from "../homepage/Premium";
+import "./Stock.css";
 
 // // Step 6 - Adding the chart and theme as dependency to the core fusioncharts
 ReactFC.fcRoot(FusionCharts, candlestick, FusionTheme);
@@ -23,9 +24,9 @@ const Stock = () => {
   //variables for data
   const context = useContext(NoteContext);
   let navigate = useNavigate();
-   const [showchart, setshowchart] = useState(false)
+  const [showchart, setshowchart] = useState(false);
   const [seed, setseed] = useState(1);
-  let { setdailydata, dailydata,setreport ,setreporttype} = context;
+  let { setdailydata, dailydata, setreport, setreporttype } = context;
   const [qhigh, setqhigh] = useState("");
   const [qlow, setqlow] = useState("");
   const [qopen, setqopen] = useState("");
@@ -35,25 +36,24 @@ const Stock = () => {
   const [qchangepercent, setqchangepercent] = useState("");
   const [qvol, setqvol] = useState("");
   const [qlastdate, setqlastdate] = useState("");
-const [weeklyData, setweeklyData] = useState({})
-const [monthlyData, setmonthlyData] = useState({})
+  const [weeklyData, setweeklyData] = useState({});
+  const [monthlyData, setmonthlyData] = useState({});
   const [chartConfigs, setchartConfigs] = useState();
   //for fetching data
   useEffect(() => {
     globalQuote(sessionStorage.getItem("indi"));
-    fetchglobal()
+    fetchglobal();
     setTimeout(() => {
       // fetchdailydata(sessionStorage.getItem('indi'));
       globalQuote(sessionStorage.getItem("indi"));
     }, 2000);
-
   }, []);
   let stockname = sessionStorage.getItem("stockname");
   //
-  
+
   const fetchglobal = async () => {
-  let checkgdata =sessionStorage.getItem("gdata");
-  if(!checkgdata) {
+    let checkgdata = sessionStorage.getItem("gdata");
+    if (!checkgdata) {
       let response = await fetch(
         `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${sessionStorage.getItem(
           "indi"
@@ -61,10 +61,10 @@ const [monthlyData, setmonthlyData] = useState({})
       );
       let data = await response.json();
       sessionStorage.setItem("gdata", JSON.stringify(data));
-    }else{
-      globalQuote()
+    } else {
+      globalQuote();
     }
-  }
+  };
 
   //fetching market news and sentiment
 
@@ -74,7 +74,7 @@ const [monthlyData, setmonthlyData] = useState({})
     let data;
     //console.log(gdata)//
     data = JSON.parse(sessionStorage.getItem("gdata"));
-
+    
     setqopen(data["Global Quote"]["02. open"]);
     setqclose(data["Global Quote"]["08. previous close"]);
     setqhigh(data["Global Quote"]["03. high"]);
@@ -167,7 +167,7 @@ const [monthlyData, setmonthlyData] = useState({})
     let response = await fetch(
       `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${element}&apikey=${apikey}`
     );
-    setweeklyData( await response.json())
+    setweeklyData(await response.json());
 
     let jsondata = weeklyData["Weekly Time Series"];
 
@@ -219,7 +219,7 @@ const [monthlyData, setmonthlyData] = useState({})
               },
               {
                 label: "10 years ago",
-                x:  (Object.keys(jsondata).length)/2
+                x: Object.keys(jsondata).length / 2,
               },
               {
                 label: "Today",
@@ -240,7 +240,7 @@ const [monthlyData, setmonthlyData] = useState({})
     let response = await fetch(
       `https://www.alphavantage.co/query?function=TIME_SERIES_MONTHLY&symbol=${element}&apikey=${apikey}`
     );
-    setmonthlyData( await response.json());
+    setmonthlyData(await response.json());
 
     let jsondata = monthlyData["Monthly Time Series"];
 
@@ -288,11 +288,11 @@ const [monthlyData, setmonthlyData] = useState({})
             category: [
               {
                 label: "20 years ago",
-                x:  "1"
+                x: "1",
               },
               {
                 label: "10 years ago",
-                x: (Object.keys(jsondata).length)/2
+                x: Object.keys(jsondata).length / 2,
               },
               {
                 label: "Today",
@@ -317,19 +317,19 @@ const [monthlyData, setmonthlyData] = useState({})
     switch (n) {
       case 1:
         fetchdailydata(sessionStorage.getItem("indi"));
-        setshowchart(true)
+        setshowchart(true);
         break;
       case 2:
         weeklydata(sessionStorage.getItem("indi"));
-        setshowchart(true)
+        setshowchart(true);
         break;
       case 3:
         monthlydata(sessionStorage.getItem("indi"));
-        setshowchart(true)
+        setshowchart(true);
         break;
       default:
         fetchdailydata(sessionStorage.getItem("indi"));
-        setshowchart(true)
+        setshowchart(true);
         break;
     }
     // navigate('/')
@@ -339,84 +339,101 @@ const [monthlyData, setmonthlyData] = useState({})
   };
 
   //report generation
-  const reportdaily=()=>{
-    setreport(dailydata)
+  const reportdaily = () => {
+    setreport(dailydata);
     fetchdailydata(sessionStorage.getItem("indi"));
 
-    navigate('/Report')
-    setreporttype("daily")
-
-  }
-  const reportweekly=()=>{
-    setreport(weeklyData)
+    navigate("/Report");
+    setreporttype("daily");
+  };
+  const reportweekly = () => {
+    setreport(weeklyData);
     weeklydata(sessionStorage.getItem("indi"));
 
-    setreporttype("weekly")
-    navigate('/Report')
-
-  }
-  const reportmonthly=()=>{
-    setreporttype("monthly")
+    setreporttype("weekly");
+    navigate("/Report");
+  };
+  const reportmonthly = () => {
+    setreporttype("monthly");
     monthlydata(sessionStorage.getItem("indi"));
-    setreport(monthlyData)
-    navigate('/Report')
-
-  }
+    setreport(monthlyData);
+    navigate("/Report");
+  };
   return (
     <>
-      <div>
-        {sessionStorage.getItem("indi")}---{stockname}
+      <div className="container my-3">
+        <h2>
+          {" "}
+          <span style={{ color: "#0F393A" }}>
+            {sessionStorage.getItem("indi")}
+          </span>{" "}
+          --- <span style={{ color: "brown" }}>{stockname}</span>{" "}
+        </h2>
+      <hr />
       </div>
 
       <div className="container">
-        <h2>global Quote data</h2>
-        <div className="container">
-          open :{qopen} <br />
-          close :{qclose} <br />
-          average price per stock :{qprice} <br />
-          high :{qhigh} <br />
-          low :{qlow} <br />
-          volume :{qvol} <br />
-          last traded day of this stock: {qlastdate} <br />
-          change :{qchange} <br />
-          change percentage :{qchangepercent}
+        <h2 className="mx-2">Global Quote Data</h2>
+
+        &nbsp; &nbsp;last traded day of this stock: <span style={{color:'brown'}}>{qlastdate} </span>
+        <div className="container table">
+        
+          <div className="tablea">
+            {" "}
+            open : <span>{qopen}</span> <br /> 
+            close : <span>{qclose}</span> <br /> 
+            high : <span>{qhigh} </span> <br />
+            low : <span>{qlow} </span>
+          </div>
+          <div className="tableb">
+            {" "}
+           
+            volume : <span>{qvol}</span> <br />
+            average price per stock : <span>{qprice} </span> <br />
+            change : {qchange < 0?<span style={{color:'red'}}>{qchange}</span> :<span style={{color:'green'}}>{qchange}</span>} <br />
+            change percentage :{qchange < 0?<span style={{color:'red'}}>{qchangepercent}</span> :<span style={{color:'green'}}>{qchangepercent}</span>}
+          </div>
         </div>
         <div className="container align-center">
+        
+        </div>
+        <hr />
+        {showchart ? (
+          <div className="container" id="chart-container">
+            <ReactFC {...chartConfigs} key={seed} />
+          </div>
+        ) : null}
           <button
             type="button"
-            className="btn-primary"
+            className="btn my-2 mx-3"
             value="update graph"
             onClick={() => reload(1)}
           >
             update graph
           </button>
-        </div>
-      {showchart?  <div id="chart-container">
-          <ReactFC {...chartConfigs} key={seed} />
-        </div>:null}
-        <div className="container">
-          <button className="btn-primary" onClick={() => reload(1)}>
+        <div className="container my-2 ">
+          <h4> Select Graph </h4>
+          <button className="btn my-2" onClick={() => reload(1)}>
             daily
           </button>
-          <button className="btn-primary" onClick={() => reload(2)}>
+          <button className="btn mx-2" onClick={() => reload(2)}>
             weekly
           </button>
-          <button className="btn-primary" onClick={() => reload(3)}>
+          <button className="btn" onClick={() => reload(3)}>
             monthly
           </button>
         </div>
       </div>
-      <Premium/>
+      <Premium />
       <Sentiment element={sessionStorage.getItem("indi")} />
-   
-      <div className="container"><h3>REPORT GENERATION SECTION</h3>
-      <button onClick={reportdaily}>daily series report </button>
-      <button  onClick={reportweekly}>weekly series report</button>
-      <button  onClick={reportmonthly}>monthly series report</button>
+
+      <div className="container my-4">
+        <h3>REPORT GENERATION </h3>
+        <button className="btn" onClick={reportdaily}>Daily series report </button>
+        <button  className="btn mx-2" onClick={reportweekly}>Weekly series report</button>
+        <button className="btn" onClick={reportmonthly}>Monthly series report</button>
       </div>
-
     </>
-
   );
 };
 

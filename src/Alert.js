@@ -5,9 +5,9 @@ function Alert() {
     let { alert} =context;
 
   return (
-  alert &&<div className={`alert  alert-${alert.type}`} role="alert">
+  alert &&<span className={`alert mx-2 alert-${alert.type}`} role="alert">
     {alert.msg}
-  </div>
+  </span>
   )
 }
 

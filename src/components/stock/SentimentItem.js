@@ -29,8 +29,9 @@ const SentimentItem = (props) => {
             <p className="card-text">{description}</p>
            
            
-           <p>  sentiment---{sentiment}
-<br />
+           <p>  sentiment---{sentiment} on {date}</p>
+           <hr />
+
 {sentiment_score.map((element)=>{
   return   <p>ticker --- {element['ticker']}  <br />sentiment --- {element['ticker_sentiment_label']} </p>
 
@@ -38,8 +39,8 @@ const SentimentItem = (props) => {
 }
 
 
-<br /> on {date}</p>
 
+<hr />
 {topics.map((element)=>{
   return   <p>topic --- {element['topic']}  <br />relevance score --- {element['relevance_score']} </p>
 

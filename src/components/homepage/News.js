@@ -22,7 +22,7 @@ const News = () => {
  
     return (
     <><div className='outer'> <div className="news container  ">
-    <h4>The News Board <i class="fa-solid fa-thumbtack"></i></h4>
+    <h4>The News Board <i className="fa-solid fa-thumbtack"></i></h4>
     The top news articles from across the world are pinned here...Just for you...
 <div className="row">
 {articles.map((element) => {

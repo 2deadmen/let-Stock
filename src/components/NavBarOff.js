@@ -47,8 +47,8 @@ const NavBarOff = () => {
 
 
  
- <button onClick={openNav}><i class="fa-regular fa-user"></i>
-</button>
+ <span onClick={openNav}> <i className="fa-solid fa-1x fa-user mx-2 btn"></i> 
+</span>
  
 
 

@@ -1,0 +1,27 @@
+.tablea{
+
+}
+.tableb{
+    
+}
+
+.table{
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    font-weight: 500;
+}
+
+.table span{
+    color: green;
+    
+}
+body{
+    font-weight: 500;
+}
+@media only screen and (max-width: 961px) {
+    .table{
+        display: grid;
+        grid-template-columns: 1fr ;
+        font-weight: 500;
+    }
+}

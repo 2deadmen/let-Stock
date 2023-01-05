@@ -23,7 +23,7 @@ useEffect(() => {
    <Banner/>
    <Premium/>
     <Gainloose/>
-    <News/>
+    {/* <News/> */}
     </div>
   )
 }
