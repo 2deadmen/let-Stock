@@ -8,7 +8,7 @@ const app = express()
 const port = 3001
 app.use(cors())
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "https://letstock-2bc58.web.app"
 };
 
 app.use(cors(corsOptions));
