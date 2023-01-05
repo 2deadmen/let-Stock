@@ -341,18 +341,23 @@ const [monthlyData, setmonthlyData] = useState({})
   //report generation
   const reportdaily=()=>{
     setreport(dailydata)
+    fetchdailydata(sessionStorage.getItem("indi"));
+
     navigate('/Report')
     setreporttype("daily")
 
   }
   const reportweekly=()=>{
     setreport(weeklyData)
+    weeklydata(sessionStorage.getItem("indi"));
+
     setreporttype("weekly")
     navigate('/Report')
 
   }
   const reportmonthly=()=>{
     setreporttype("monthly")
+    monthlydata(sessionStorage.getItem("indi"));
     setreport(monthlyData)
     navigate('/Report')
 
