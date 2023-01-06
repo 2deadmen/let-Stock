@@ -217,4 +217,19 @@ router.post('/update',async (req,res)=>{
   }
 })
 
+
+
+router.post('/captcha',async (req,res)=>{
+
+
+  const {token} = req.body;
+    
+  let response=await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${token}`)
+  if(response.status===200){
+    res.json({success:true})
+  }else{
+    res.json({success:false})
+  }
+
+})
 module.exports=router
