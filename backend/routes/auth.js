@@ -8,7 +8,7 @@ var fetchuser = require('../middleware/fetchuser')
 const  jwt_secret ="this is not a secret"
 const { sendConfirmationEmail ,sendResetPasswordEmail}  = require('../sendmail');
 const otpGenerator = require('otp-generator');
-
+const axios = require('axios');
 
 router.post('/signup',
 //validators
@@ -223,9 +223,10 @@ router.post('/captcha',async (req,res)=>{
 
 
   const {token} = req.body;
-    
-  let response=await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${token}`)
-  if(response.status===200){
+  await axios.post(
+    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${token}`
+    );
+  if(res.status===200){
     res.json({success:true})
   }else{
     res.json({success:false})
