@@ -8,7 +8,7 @@ const app = express()
 const port = 3001
 app.use(cors())
 var corsOptions = {
-  origin: "http://localhost:3000"
+  origin: "http://localhost:3000" ||"https://let-stock.vercel.app"
 };
 
 app.use(cors(corsOptions));

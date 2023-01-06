@@ -296,7 +296,7 @@ const Signup = () => {
           <ReCAPTCHA
             sitekey={siteKey}
             ref={captchaRef}
-            onchange={checkcaptcha}
+            onChange={checkcaptcha}
           />
          <small id="captcha"></small>
           <div>
