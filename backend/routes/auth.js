@@ -223,10 +223,10 @@ router.post('/captcha',async (req,res)=>{
 
 
   const {token} = req.body;
-  await axios.post(
+  let axres=await axios.post(
     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${token}`
     );
-  if(res.status===200){
+  if(axres.status===200){
     res.json({success:true})
   }else{
     res.json({success:false})
