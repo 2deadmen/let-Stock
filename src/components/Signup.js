@@ -4,7 +4,6 @@ import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import Reaptcha from "reaptcha";
 import NoteContext from "./NoteContext";
-import ReCAPTCHA from 'react-google-recaptcha';
 
 
 const Signup = () => {
@@ -119,7 +118,6 @@ const Signup = () => {
   const [profile, setprofile] = useState("");
   const clientId =
     "594736525168-qk26qtde1i8fr3jqflqm18mdrn5536q8.apps.googleusercontent.com";
-    
   useEffect(() => {
     const initClient = () => {
       gapi.client.init({
@@ -157,14 +155,31 @@ const Signup = () => {
       navigate("/");
      showalert("Be sure to check your mail for activation link","success")
     }
+    else{let alert=json['error']
+    showalert(alert,"danger")}
   };
 
   const onFailure = (err) => {
     console.log("failed", err);
   };
-
-  
-
+  const verify = () => {
+    captchaRef.current.getResponse().then((res) => {
+      setCaptchaToken(res);
+    });
+    
+  };
+  const expire = () => {
+    captchaRef.current.getResponse().then(() => {
+      setCaptchaToken(null);
+    });
+    
+  };
+  const error = () => {
+    captchaRef.current.getResponse().then(() => {
+      captchaRef.current.reset()
+    });
+    
+  };
   const styling=(n)=>{
     let btn  = document.getElementById(n)
     btn.style.cssText='box-shadow: 0px 15px 10px -15px #0F393A;border:1.5px solid  #0F393A'
@@ -172,33 +187,6 @@ const Signup = () => {
     btn.addEventListener('blur',()=>{
       btn.style.cssText=''
     })
-  }
-
-  const checkcaptcha= async()=>{
-    //console.log(value)
-    const token1 = captchaRef.current.getValue();
-  
-    const response = await fetch(
-      `https://let-stock.vercel.app/api/auth/captcha`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-         token:token1
-        }),
-      }
-    );
-    let json=await response.json()
-    if ( json['success']===true) {
-      setCaptchaToken(token1)
-      console.log("success")
-    }
-    else{
-      setCaptchaToken(null)
-    }
-    //captchaRef.current.reset();
   }
 
   return (
@@ -293,14 +281,16 @@ const Signup = () => {
             Show Password
           </div>
           {/* recaptcha */}
-          <ReCAPTCHA
+          <Reaptcha
             sitekey={siteKey}
             ref={captchaRef}
-            onClick={checkcaptcha}
-          />
+            onVerify={verify}
+            onExpire={expire}
+            onError={error}
+          ></Reaptcha>
          <small id="captcha"></small>
           <div>
-              <button type="submit" onMouseEnter={checkcaptcha} className="btn  my-2 ">
+            <button type="submit" className="btn  my-2 ">
               Submit
             </button>
           </div>

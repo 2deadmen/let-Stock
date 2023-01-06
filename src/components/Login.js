@@ -11,7 +11,7 @@ const Login = () => {
     const [captchaToken, setCaptchaToken] = useState(null);
     const captchaRef = useRef(null);
 
-    const siteKey = "6LcHsLgjAAAAADwZWJSieOsbn4pz5iYspv-R9vkx";
+    const siteKey = "6LcoWtcjAAAAAC-Al1mTJVnEls0O0gPgfnISa-ZA";
 
   const [creds, setcreds] = useState({ email: "", password: "" });
   let navigate = useNavigate();
@@ -114,6 +114,10 @@ const Login = () => {
       showalert("Hello there..!!!","success")
      
 
+    }else {
+      let alert=json['error']
+      showalert(alert,"danger")
+      
     }
 
   };
