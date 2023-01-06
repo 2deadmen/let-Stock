@@ -190,15 +190,15 @@ const Signup = () => {
         }),
       }
     );
-     console.log(response.json())
-    if ( response.status===200) {
+    let json=await response.json()
+    if ( json['success']===true) {
       setCaptchaToken(token1)
-      
+      console.log("success")
     }
     else{
       setCaptchaToken(null)
     }
-    captchaRef.current.reset();
+    //captchaRef.current.reset();
   }
 
   return (
@@ -296,7 +296,7 @@ const Signup = () => {
           <ReCAPTCHA
             sitekey={siteKey}
             ref={captchaRef}
-            onChange={checkcaptcha}
+            onClick={checkcaptcha}
           />
          <small id="captcha"></small>
           <div>
