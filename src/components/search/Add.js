@@ -1,10 +1,17 @@
 
 import NoteContext from "../NoteContext";
-import React,{useState,useContext} from 'react'
+import React,{useState,useContext,useEffect} from 'react'
 import Searchele from './Searchele';
+import {  useNavigate } from "react-router-dom";
+
 
 const Add = () => {
-
+  let navigate = useNavigate();
+  useEffect(() => {
+    if(!sessionStorage.getItem('token')){
+      navigate('/Login')  
+   }  
+  }, [])
   let Data=[]
   const [Results, setResults] = useState(Data)
 const [stock,setstock]=useState({searchbar:""})
