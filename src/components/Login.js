@@ -8,7 +8,7 @@ import Reaptcha from "reaptcha";
 const Login = () => {
   const context = useContext(NoteContext);
     let { setforgotemail,showalert} =context;
-    const [captchaToken, setCaptchaToken] = useState(null);
+    const [captchaToken, setCaptchaToken] = useState("lkjhgfd");
     const captchaRef = useRef(null);
 
     const siteKey = "6LcoWtcjAAAAAC-Al1mTJVnEls0O0gPgfnISa-ZA";
@@ -215,7 +215,7 @@ const Login = () => {
        
   
   {/* recaptcha */}
-<div>  <Reaptcha
+{/* <div>  <Reaptcha
             sitekey={siteKey}
             ref={captchaRef}
             onVerify={verify}
@@ -223,7 +223,7 @@ const Login = () => {
             onError={error}
           ></Reaptcha>
          <small id="captcha"></small>
- </div>
+ </div> */}
 
 
         <button type="submit" className="btn btn my-2">

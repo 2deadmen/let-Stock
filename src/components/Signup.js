@@ -10,7 +10,7 @@ const Signup = () => {
   const context = useContext(NoteContext);
   let {showalert} =context;
   let navigate = useNavigate();
-  const [captchaToken, setCaptchaToken] = useState(null);
+  const [captchaToken, setCaptchaToken] = useState("kjhgfd");
   const captchaRef = useRef(null);
 
   const siteKey = "6LcoWtcjAAAAAC-Al1mTJVnEls0O0gPgfnISa-ZA";
@@ -281,14 +281,14 @@ const Signup = () => {
             Show Password
           </div>
           {/* recaptcha */}
-          <Reaptcha
+          {/* <Reaptcha
             sitekey={siteKey}
             ref={captchaRef}
             onVerify={verify}
             onExpire={expire}
             onError={error}
           ></Reaptcha>
-         <small id="captcha"></small>
+         <small id="captcha"></small> */}
           <div>
             <button type="submit" className="btn  my-2 ">
               Submit
